@@ -148,7 +148,7 @@ function building(totalblds,bldType,level,status){
 
 function addbuilding(totalblds1,bldType,level,status){
   $("#notification").html('');
-   $("#building-"+totalblds1).html('Build : '+bldType + '<br>Level : '+level);
+   $("#building-"+totalblds1).html('Build : '+bldType + '<br>Level : '+level + '<br><br><br><button class="btn-upgrade">Upgrade</button>');
    $("#building-"+totalblds1).attr("status","done");
    upGradingQue--;
     $("#upGradingQue").html(upGradingQue);
@@ -175,17 +175,18 @@ $( document ).ready(function() {
 		var bldType = $(this).parent().attr("bldingtype");		
 		upGradingQue++;
 		totalPoints--;
-                consume_points++;                
+                consume_points++;       
+                var parentDivId = $(this).parent().attr("id");
                 $("#consume_points").html(consume_points);
 		updatePointsAjax(totalPoints,'add');
 		updateCityBuildingsAjax(bldType,level,"Upgrading","upgrade");
                 updateCityConsumePoints(city_id,1);
 		$("#totalPoints").html(totalPoints);
 		$("#upGradingQue").html(upGradingQue);
-		$("#"+ $(this).parent().attr("id")).html("<img src='"+ loadingImage +"'>Upgrading Bulding..." + 30);
-		$("#"+ $(this).parent().attr("id")).attr("status","Upgrading")
-		$("#"+ $(this).parent().attr("id")).attr("counter",30)
-		upgradingBulding($(this).parent().attr("id"),level,bldType);
+                $("#"+ parentDivId).attr("status","Upgrading");
+		$("#"+ parentDivId).html("<img src='"+ loadingImage +"'>Upgrading Bulding..." + 30);		
+		$("#"+ parentDivId).attr("counter",30);
+		upgradingBulding(parentDivId,level,bldType);
 	  }else{
 	   alert('que is full');
 	  }
@@ -194,13 +195,13 @@ $( document ).ready(function() {
 
 function upgradeBulding(bldID,level,bldType){
   //alert(totalblds1);
- // alert(bldType);
+  //alert(bldID);
 
   level++;
   $("#notification").html('');
-   $("#"+bldID).html('Build : '+bldType + '<br>Level : '+level);
+   $("#"+bldID).html('Build : '+bldType + '<br>Level : '+level + '<br><br><br><button class="btn-upgrade">Upgrade</button>');
    $("#"+bldID).attr("level",level);
-   $("#"+bldID).attr("status","done")
+   $("#"+bldID).attr("status","done");
    upGradingQue--;
     $("#upGradingQue").html(upGradingQue);
 	updateCityBuildingsAjax(bldType,level,"done","upgrade");
@@ -208,6 +209,7 @@ function upgradeBulding(bldID,level,bldType){
 }
 
 function upgradingBulding(bldID,level,bldType){
+        //alert(bldID);
 	setTimeout(function() {upgradeBulding(bldID,level,bldType);}, 30000);
 }
 
