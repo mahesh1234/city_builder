@@ -1,2 +1,2 @@
 # city_builder
-City Simulation Game1
+City Simulation Game
