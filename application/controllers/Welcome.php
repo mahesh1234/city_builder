@@ -108,7 +108,7 @@ class Welcome extends CI_Controller {
     }
 
     /*
-     * AJax function for points cosume by the city
+     * AJax function for points cosume by the city //remove this txtx
      */
     public function updateCityConsumePoints() {
         $data['city_id'] = $this->input->post('city_id');
